@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+# # TODO nf-core: Add a description of the module and list keywords
+name: "rmats_post"
+description: write your description here
+keywords:
+  - sort
+  - example
+  - genomics
+tools:
+  ## TODO nf-core: Add a description and other details for the software below
+  - "rmats":
+      description: "MATS is a computational tool to detect differential alternative
+        splicing events from RNA-Seq data."
+      homepage: "None"
+      documentation: "None"
+      tool_dev_url: "None"
+      doi: ""
+      licence: ["Free for non-commercial use, see LICENSE file"]
+      identifier: biotools:rmats
+
+input:
+  # TODO nf-core: Update the information obtained from bio.tools and make sure that it is correct
+  - - meta:
+        type: map
+        description: Groovy Map containing sample information. e.g. `[
+          id:'sample1' ]`
+    - nucleic_acid_sequence:
+        type: file
+        description: nucleic_acid_sequence file
+        pattern: "*.{sam,fastq}"
+        ontologies:
+          - edam: http://edamontology.org/data_2977 # Nucleic acid sequence
+          - edam: http://edamontology.org/format_2573 # SAM
+          - edam: http://edamontology.org/format_1930 # FASTQ
+output:
+  # TODO nf-core: Update the information obtained from bio.tools and make sure that it is correct
+  q-value:
+    - - meta:
+          type: map
+          description: Groovy Map containing sample information. e.g. `[
+            id:'sample1' ]`
+      - "*.{}":
+          type: file
+          description: q-value file
+          pattern: "*.{}"
+          ontologies:
+            - edam: http://edamontology.org/data_3932 # Q-value
+  p-value:
+    - - meta:
+          type: map
+          description: Groovy Map containing sample information. e.g. `[
+            id:'sample1' ]`
+      - "*.{}":
+          type: file
+          description: p-value file
+          pattern: "*.{}"
+          ontologies:
+            - edam: http://edamontology.org/data_1669 # P-value
+  versions_rmats:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - rmats:
+          type: string
+          description: The name of the tool
+      - rmats --version:
+          type: eval
+          description: The expression to obtain the version of the tool
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - rmats:
+          type: string
+          description: The name of the tool
+      - rmats --version:
+          type: eval
+          description: The expression to obtain the version of the tool
+authors:
+  - "@piplus2"
+maintainers:
+  - "@piplus2"
